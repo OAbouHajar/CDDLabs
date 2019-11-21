@@ -13,7 +13,7 @@ CFLAGS= -std=c++17 -pthread
 	$(CC) -c -o $@ $< $(CFLAGS) $(DEBUGFLAGS)
 
 ALL: main.o Semaphore.o
-	$(CC) -o mutex main.o Semaphore.o $(CFLAGS) $(DEBUGFLAGS)
+	$(CC) -o SemaphoreLab2 main.o Semaphore.o $(CFLAGS) $(DEBUGFLAGS)
 
 DEBUG: DEBUGFLAGS = -DDEBUG
 DEBUG: ALL
