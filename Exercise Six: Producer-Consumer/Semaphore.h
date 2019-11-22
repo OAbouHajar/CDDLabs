@@ -1,3 +1,22 @@
+/**
+ * 	
+  Authors of Project
+	  Osama Abou Hajar, Joseph Kehoe/
+
+  Date wrriten: 
+    21 NOV 2019
+ *Project Licence
+  	You are free to:
+		Share — copy and redistribute the material in any medium or format
+		Adapt — remix, transform, and build upon the material
+		The licensor cannot revoke these freedoms as long as you follow the license terms.
+	full term and condition licence avilable at::
+		https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+		
+
+*/
+
+
 #ifndef SEMAPHORE_H
 #define SEMAPHORE_H 
 #include <mutex>

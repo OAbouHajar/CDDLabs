@@ -8,7 +8,7 @@
  * Version: 
  * Package-Requires: ()
  * Last-Updated: Tue Jan  8 12:15:54 2019 (+0000)
- *           By: Joseph
+ *           By: Joseph ,Osama Abou hajar
  *     Update #: 2
  * URL: 
  * Doc URL: 
@@ -44,13 +44,23 @@
 
 /* Code: */
 #pragma once
+#include "Semaphore.h"
 class Barrier{
+private:
   int numThreads;
- public:
+  int current_count;
+  std::shared_ptr<Semaphore> lock;
+  std::shared_ptr<Semaphore> turnstile_one;
+  std::shared_ptr<Semaphore> turnstile_two;
+public:
   Barrier(int numThreads);
   virtual ~Barrier();
-  void wait();  
+  void wait();
+  void phase_one();
+  void phase_two(); 
 };
 
 
-/* Barrier.h ends here */
+
+// 
+// Barrier.cpp ends here

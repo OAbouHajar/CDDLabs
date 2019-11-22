@@ -1,10 +1,45 @@
-The README file is a text filw that explains what a project is.
-It should contain information on
+Rendezvous program to demonstrate the work of the semaphore functions Wait() and Signal
 
 1. Project Licence
+	You are free to:
+		Share — copy and redistribute the material in any medium or format
+		Adapt — remix, transform, and build upon the material
+		The licensor cannot revoke these freedoms as long as you follow the license terms.
+	full term and condition licence avilable at::
+		https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+		
+	
 2. Authors of Project
+	Osama Abou Hajar, Joseph Kehoe
 3. How to install project
+	1-	Customise emacs to suit your tastes and examine the code to make sure you understand it
+	2- 	Compile the file from the command line using the command "g++ -std=c++11 -pthread helloThreads.cpp"
+	3-	Run the file and check the output making sure you understand what has occured
+
+	4-	Copy the file Makefile1 to Makefile and examine using emacs
+	5-	Reopen helloThreads.cpp and try the compile option
+		5.1 or using the terminal "Make -k Makefile"
+
+	6-	Run the output: 
+		 
+	
 4. List of any required Libraries, platform issues, etc.
+	- install make
+	- install gcc compiler 
+ 	- install emacs	
+
+
 5. TO DO section listing items that need to be completed (errors, missing features etc.)
+	- Wiat() and Signal() functions need to be used in this program with a correct order 
+	to make the out order as expected.
+
+
 6. List of files and what they contain
+			
+	1-	".cpp"			: the code file contain all the code and funstions needed
+	2- 	"MakeFile"		: Used to contain commands to compile projects
+	3- 	"*.o"			: the output files.
+
+
 7. Any other relevent information
+	

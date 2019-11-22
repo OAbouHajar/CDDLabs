@@ -8,25 +8,24 @@
  * Version: 
  * Package-Requires: ()
  * Last-Updated: Tue Jan  8 12:30:25 2019 (+0000)
- *           By: Joseph
- *     Update #: 1
- * URL: 
- * Doc URL: 
- * Keywords: 
- * Compatibility: 
- * 
- */
+ *
+ * 	
+  Authors of Project
+	  Osama Abou Hajar, Joseph Kehoe/
 
-/* Commentary: 
- * 
- * 
- * 
- */
+  Date wrriten: 
+    21 NOV 2019
+ *Project Licence
+  	You are free to:
+		Share — copy and redistribute the material in any medium or format
+		Adapt — remix, transform, and build upon the material
+		The licensor cannot revoke these freedoms as long as you follow the license terms.
+	full term and condition licence avilable at::
+		https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+		
 
-/* Change Log:
- * 
- * 
- */
+*/
+
 
 /* This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -45,5 +44,21 @@
 /* Code: */
 
 
+#pragma once
+#include "Event.h"
+#include "Semaphore.h"
+#include <vector>
+
+class SafeBuffer{
+    private:
+        std::vector<Event> theData;
+        std::shared_ptr<Semaphore> theMutex;
+        std::shared_ptr<Semaphore> theSemaphore;
+
+    public:
+        SafeBuffer();
+        int push(Event);
+        Event pop();
+};
 
 /* SafeBuffer.h ends here */

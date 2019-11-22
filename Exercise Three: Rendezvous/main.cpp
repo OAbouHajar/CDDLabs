@@ -7,26 +7,37 @@
     \brief An Implementation of a Rendezvous using Semaphores
 
    Uses C++11 features such as mutex and condition variables to implement an example of a rendezvous for threads
+    \author: Osama Abou Hajar, C00220135
 
 */
-/*! displays a message that is split in to 2 sections to show how a rendezvous works*/
+/*! displays a message that is split in to 2 sections to show how a rendezvous works
+* \fn TaskOne Function  
+* \brief to print the first thread when arrive.
+* \param :firstSem the fist shared thread
+* \param :secondSem the second shared thread
+*
+*/
 void taskOne(std::shared_ptr<Semaphore> firstSem,std::shared_ptr<Semaphore>  secondSem, int delay){
-
   std::this_thread::sleep_for(std::chrono::seconds(delay));
   std::cout <<"Task One has arrived! "<< std::endl;
-  secondSem->Signal();
-  firstSem->Wait();
-  //THIS IS THE RENDEZVOUS POINT!
-  std::cout << "Task One has left!"<<std::endl;
-}
-/*! displays a message that is split in to 2 sections to show how a rendezvous works*/
-void taskTwo(std::shared_ptr<Semaphore> firstSem, std::shared_ptr<Semaphore> secondSem, int delay){
-
-  std::this_thread::sleep_for(std::chrono::seconds(delay));
-  std::cout <<"Task Two has arrived "<<std::endl;
   firstSem->Signal();
   secondSem->Wait();
   //THIS IS THE RENDEZVOUS POINT!
+  std::cout << "Task One has left!"<<std::endl;
+}
+/*! displays a message that is split in to 2 sections to show how a rendezvous works
+* \fn TaskTwo Function  
+* \brief to print the first thread when arrive.
+* \param :firstSem the fist shared thread
+* \param :secondSem the second shared thread
+*
+*/
+void taskTwo(std::shared_ptr<Semaphore> firstSem, std::shared_ptr<Semaphore> secondSem, int delay){
+  std::this_thread::sleep_for(std::chrono::seconds(delay));
+  firstSem->Wait();
+   std::cout <<"Task Two has arrived "<<std::endl;
+  //THIS IS THE RENDEZVOUS POINT!  
+  secondSem->Signal();
   std::cout << "Task Two has left "<<std::endl;
 
 }
@@ -38,8 +49,8 @@ int main(void){
   int taskOneDelay=5;
   int taskTwoDelay=1;
   /**< Launch the threads  */
-  threadOne=std::thread(taskTwo,sem1,sem2,taskTwoDelay);
-  threadTwo=std::thread(taskOne,sem1,sem2,taskOneDelay);
+  threadOne=std::thread( taskTwo,sem1,sem2,taskTwoDelay);
+  threadTwo=std::thread(taskOne,sem1,sem2, taskOneDelay );
   std::cout << "Launched from the main\n";
   threadOne.join();
   threadTwo.join();

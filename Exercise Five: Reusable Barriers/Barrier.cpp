@@ -1,51 +1,77 @@
 // Barrier.cpp --- 
 // 
 // Filename: Barrier.cpp
-// Description: 
-// Author: Joseph
-// Maintainer: 
-// Created: Tue Jan  8 12:14:02 2019 (+0000)
-// Version: 
-// Package-Requires: ()
-// Last-Updated: Tue Jan  8 12:15:21 2019 (+0000)
-//           By: Joseph
-//     Update #: 2
-// URL: 
-// Doc URL: 
-// Keywords: 
-// Compatibility: 
-// 
-// 
-
-// Commentary: 
-// 
-// 
-// 
-// 
-
-// Change Log:
-// 
-// 
-// 
-// 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at
-// your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-// General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.
+// Description: Keep count of number of threads. Only allow one thread past the barrier, as created, at a time. 
+// Each thread locks the barrier while past the threshold and unlocks on leab=ving.
+// Each thread which wishes to cces the barrier incrments the counter and waits there turn.
+// After a thread exits one section/barrier - it must wait before accessing the next
+// So one thread cannot get ahead of the others by more than one barrier
+// Author: Osama Abou Hajar
 // 
 // 
 
 // Code:
 #include "Semaphore.h"
 #include "Barrier.h"
+#include <iostream>
+
+
+Barrier::Barrier(int numThreads)
+{
+    this->numThreads = numThreads;
+    current_count = 0;
+    lock.reset(new Semaphore(1));
+    turnstile_one.reset(new Semaphore(0));
+    turnstile_two.reset(new Semaphore(1));
+}
+
+
+Barrier::~Barrier()
+{
+    lock.reset();
+    turnstile_one.reset();
+    turnstile_two.reset();
+}
+
+
+void Barrier::phase_one()
+{
+    lock->Wait();
+    ++current_count;
+    if (current_count == numThreads)
+    {
+        turnstile_two->Wait();
+        turnstile_one->Signal();
+    }
+    lock->Signal();
+    turnstile_one->Wait();
+    turnstile_one->Signal();
+
+}
+
+
+void Barrier::phase_two()
+{
+    lock->Wait();
+    --current_count;
+    if (current_count == 0)
+    {
+        turnstile_one->Wait();
+        turnstile_two->Signal();
+    }
+    lock->Signal();
+    turnstile_two->Wait();
+    turnstile_two->Signal();
+
+}
+
+
+void Barrier::wait()
+{
+    phase_one();
+    phase_two();
+}
+
 
 
 // 

@@ -12,23 +12,31 @@ int sharedVariable=0;
     \brief An Implementation of Mutual Exclusion using Semaphores
 
    Uses C++11 features such as mutex and condition variables to implement an example of a rendezvous for threads
-
+*    \author Osama Abou Hajar, C00220135 
 */
 /*! displays a message that is split in to 2 sections to show how a rendezvous works*/
+/*!
+* \fn Update Task
+* @param firstSem
+* @param numUpdates
+*/
 void updateTask(std::shared_ptr<Semaphore> firstSem, int numUpdates){
 
  
   for(int i=0;i<numUpdates;i++){
     //UPDATE SHARED VARIABLE HERE!
+    firstSem->Wait();
     sharedVariable++;
-  }
+    firstSem->Signal();
 
+  }
+  
 }
 
 
 int main(void){
   std::vector<std::thread> vt(num_threads);
-  std::shared_ptr<Semaphore> aSemaphore( new Semaphore);
+  std::shared_ptr<Semaphore> aSemaphore( new Semaphore(1));
   /**< Launch the threads  */
   int i=0;
   for(std::thread& t: vt){

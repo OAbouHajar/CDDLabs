@@ -3,6 +3,7 @@
     
     You should document all your files using doxygen.  
     NOTE: Any files not documented in this manner will not be accepted!
+    \author: Osama Abou Hajar, C00220135
 */
 #include <iostream>
 #include <thread>
@@ -49,8 +50,8 @@ int main() {
  
          /**< Join the threads with the main thread */
          for (auto& v :vt){
-	   v.join();
-         }
+            v.join();
+            }
  
          return 0;
 }
