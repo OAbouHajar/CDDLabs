@@ -18,6 +18,8 @@ ALL: main.o
 DEBUG: DEBUGFLAGS = -DDEBUG
 DEBUG: ALL
 
+doc: 
+	doxygen Doxyfile
 #this is customary and just deletes all .o files
 CLEAN:
 	rm *.o
